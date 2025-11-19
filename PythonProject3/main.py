@@ -1,12 +1,15 @@
-def process_input(value):
-    if value == "":
-        return "Ошибка: введена пустая строка."
+class InvalidAgeError(Exception):
+    pass
 
-    try:
-        num = int(value)
-        return num * num
-    except ValueError:
-        return "Ошибка: введенная строка не является числом."
+def check_age(age):
+    if age > 150:
+        raise InvalidAgeError("Age cannot be greater than 150.")
 
-print(process_input("5"))
-print(process_input(" "))
+try:
+    age = int(input("Enter your age: "))
+    check_age(age)
+    print("Age is valid.")
+except InvalidAgeError as e:
+    print(e)
+except ValueError:
+    print("Please enter a valid integer for age.")
