@@ -1,15 +1,23 @@
-class InvalidAgeError(Exception):
+class ApplicationError(Exception):
+    pass
+class ValueTooLargeError(ApplicationError):
+    pass
+class NegativeValueError(ApplicationError):
     pass
 
-def check_age(age):
-    if age > 150:
-        raise InvalidAgeError("Age cannot be greater than 150.")
-
+def check_number(value):
+    if value < 0:
+        raise NegativeValueError("Value is negative")
+    elif value > 100:
+        raise ValueTooLargeError("Value is too large")
+    else:
+        return "The value is acceptable."
 try:
-    age = int(input("Enter your age: "))
-    check_age(age)
-    print("Age is valid.")
-except InvalidAgeError as e:
-    print(e)
-except ValueError:
-    print("Please enter a valid integer for age.")
+    num = int(input())
+    print(check_number(num))
+except NegativeValueError as e:
+    print(f"Error: {e}")
+except ValueTooLargeError as e:
+    print(f"Error: {e}")
+except ApplicationError as e:
+    print(f"An application error occurred: {e}")
