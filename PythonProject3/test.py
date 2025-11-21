@@ -1,6 +1,4 @@
-import PythonProject3
+def func1():
+    return "Hello from def1"
 
-print(PythonProject3.func1())
-print(PythonProject3.func2())
-
-print(dir(PythonProject3))
+test1 = 123
