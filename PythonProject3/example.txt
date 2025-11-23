@@ -1,0 +1,4 @@
+Appending first line from list.
+Appending second line from list.
+Appending third line from list.
+Мы добавили эту линию.И эту тоже.
