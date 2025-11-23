@@ -1,9 +1,7 @@
-with open("example.txt", "w") as file:
-    file.write("Hello, World!")
-
-with open("example.txt", "a") as file:
-    file.write("\nAppended text")
-
-with open("example.txt", "r") as file:
-    content = file.read()
-    print(content)
+file = open('example_utf8.txt', 'w+', encoding='utf-8')
+file.write("Текст на русском языке.\n")
+file.write("More text in UTF-8.\n")
+file.seek(0)
+content = file.read()
+print(content)
+file.close()
