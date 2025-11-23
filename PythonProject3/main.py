@@ -1,7 +1,6 @@
-file = open('example_utf8.txt', 'w+', encoding='utf-8')
-file.write("Текст на русском языке.\n")
-file.write("More text in UTF-8.\n")
-file.seek(0)
-content = file.read()
-print(content)
-file.close()
+with open("image.bmp", "rb") as infile:
+    image_file = infile.read()
+with open("output.img", "wb") as outfile:
+    outfile.write(image_file)
+infile.close()
+outfile.close()
