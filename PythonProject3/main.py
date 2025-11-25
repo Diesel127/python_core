@@ -1,14 +1,14 @@
 import pickle
 
-# Пример объекта для сериализации
-data = {'name': 'Alice', 'age': 30, 'is_student': False}
+# Пример словаря для сериализации
+data = {
+    'name': 'Alice',
+    'age': 30,
+    'city': 'Wonderland'
+}
 
-# Сериализация объекта в файл
-with open('data.pkl', 'wb') as file:
-    pickle.dump(data, file)
 
-# Десериализация объекта из файла
-with open('data.pkl', 'rb') as file:
-    loaded_data = pickle.load(file)
-
+# Напишите тут ваш код
+serial_data = pickle.dumps(data)
+loaded_data = pickle.loads(serial_data)
 print(loaded_data)
