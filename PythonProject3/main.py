@@ -1,14 +1,13 @@
-import pickle
+def smallest_ones_length(k: int) -> int:
+    # Если k делится на 2 или 5 — ответа не существует
+    if k % 2 == 0 or k % 5 == 0:
+        return -1
 
-# Пример словаря для сериализации
-data = {
-    'name': 'Alice',
-    'age': 30,
-    'city': 'Wonderland'
-}
+    remainder = 0
+    for length in range(1, k + 1):
+        remainder = (remainder * 10 + 1) % k
+        if remainder == 0:
+            return length
 
-
-# Напишите тут ваш код
-serial_data = pickle.dumps(data)
-loaded_data = pickle.loads(serial_data)
-print(loaded_data)
+    return -1
+print(smallest_ones_length(7))
