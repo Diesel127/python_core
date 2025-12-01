@@ -1,21 +1,12 @@
 import http.client
-import json
-payload = json.dumps({
-    "username": "Denis",
-    "password": "Bykov"
-})
-headers = {
-    'Content-Type': 'application/json'
-}
-try:
-    conn = http.client.HTTPConnection("jsonplaceholder.typicode.com")
-    conn.request("POST", "/posts", body=payload, headers=headers)
-    response = conn.getresponse()
-    data = response.read().decode("utf-8")
-    print(data)
-except http.client.HTTPException as e:
-    print("HTTP error occurred:", e)
-except Exception as e:
-    print("An error occurred:", e)
-finally:
-    conn.close()
+
+proxy_port = 3128
+proxy_host = "10.10.1.0"
+conn = http.client.HTTPConnection(proxy_host, proxy_port)
+dest_url = 'httpbin.org'
+dest_path = "/ip"
+conn.set_tunnel(dest_url)
+conn.request("GET", dest_path, headers={"Host": dest_url})
+response = conn.getresponse()
+print(response.read().decode('utf-8'))
+conn.close()
