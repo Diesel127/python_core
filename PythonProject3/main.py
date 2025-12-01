@@ -1,7 +1,15 @@
 import http.client
+import json
+payload = json.dumps({
+    "username": "Denis",
+    "password": "Bykov"
+})
+headers = {
+    'Content-Type': 'application/json'
+}
 try:
     conn = http.client.HTTPConnection("jsonplaceholder.typicode.com")
-    conn.request("GET", "/")
+    conn.request("POST", "/posts", body=payload, headers=headers)
     response = conn.getresponse()
     data = response.read().decode("utf-8")
     print(data)
