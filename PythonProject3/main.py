@@ -1,33 +1,27 @@
-import socket
+import poplib
 
-def main():
-    # Параметры сервера
-    server_host = '127.0.0.1'  # Адрес сервера (localhost)
-    server_port = 12345        # Порт сервера
+# Учётные данные для входа
+username = 'bykdenis@yahoo.com'
+password = 'password'
 
-    # Создание сокета-клиента
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# Подключение к почтовому серверу Gmail
+pop3_server = 'pop.mail.yahoo.com'
+mailbox = poplib.POP3_SSL(pop3_server, 995)
 
-    try:
-        # Подключение к серверу
-        client_socket.connect((server_host, server_port))
-        print(f'Подключен к серверу {server_host}:{server_port}')
+# Вход в почтовый ящик
+mailbox.user(username)
+mailbox.pass_(password)  # Используем pass_ для предотвращения конфликта с ключевым словом pass в Python
 
-        # Сообщение для отправки серверу
-        message = 'Привет, сервер!'
-        client_socket.sendall(message.encode('utf-8'))
-        print(f'Сообщение отправлено: {message}')
+# Получение информации о почтовом ящике
+num_messages = len(mailbox.list()[1])
+print(f"Количество писем: {num_messages}")
 
-        # Получение ответа от сервера
-        response = client_socket.recv(1024).decode('utf-8')
-        print(f'Ответ от сервера: {response}')
+# Пример: Чтение последнего письма
+if num_messages > 0:
+    response, lines, octets = mailbox.retr(num_messages)
+    message = '\n'.join(line.decode('utf-8') for line in lines)
+    print("Содержимое последнего письма:")
+    print(message)
 
-    except socket.error as e:
-        print(f'Ошибка сокета: {e}')
-
-    finally:
-        # Закрытие сокета
-        client_socket.close()
-        print('Соединение закрыто')
-
-main()
+# Закрытие соединения
+mailbox.quit()
