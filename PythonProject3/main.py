@@ -1,12 +1,17 @@
-import http.client
+import socket
 
-proxy_port = 3128
-proxy_host = "10.10.1.0"
-conn = http.client.HTTPConnection(proxy_host, proxy_port)
-dest_url = 'httpbin.org'
-dest_path = "/ip"
-conn.set_tunnel(dest_url)
-conn.request("GET", dest_path, headers={"Host": dest_url})
-response = conn.getresponse()
-print(response.read().decode('utf-8'))
-conn.close()
+
+def start_server(host='127.0.0.1', port=65432):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind((host, port))
+        s.listen()
+        print(f"Server listening on {host}:{port}")
+
+        while True:
+            conn, addr = s.accept()
+            with conn:
+                print(f"Connected by {addr}")
+                conn.sendall(b"Hello, client!")
+
+
+start_server()
