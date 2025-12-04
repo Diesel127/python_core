@@ -1,12 +1,14 @@
 import requests
-repo_owner = 'octocat'
-repo_name = 'Hello-World'
-url = f'https://api.github.com/repos/{repo_owner}/{repo_name}'
+
+API_KEY = "API key"
+address = "Zitna 42 Prague"
+url = f'https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={API_KEY}'
 response = requests.get(url)
 data = response.json()
-if response.status_code == 200:
-    print(f"Репозиторий: {data['name']}")
-    print(f"Описание: {data['description']}")
-    print(f"Звёзды: {data['stargazers_count']}")
+if data['status'] == 'OK':
+    location = data['results'][0]['geometry']['location']
+    latitude = location['lat']
+    londitute = location['lng']
+    print(f"Coordinates for '{address}': Latitude = {latitude}, Longitude = {longitude}")
 else:
-    print('Ошибка получения информации о репозитории')
+        print(f"Error: {data['status']}")
