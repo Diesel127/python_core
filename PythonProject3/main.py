@@ -1,19 +1,11 @@
-import threading
+import asyncio
 
-user_data = threading.local()
-
-def process_data(user):
-    user_data.user = user
-    greet(user)
-def greet(user):
-    print(f"Hello, {user}, you data are processed")
-
-threads = []
-
-users = ["Alice", "Bob", "Ben"]
-for user in users:
-    t = threading.Thread(target=process_data, args = (user,))
-    threads.append(t)
-    t.start()
-for t in threads:
-    t.join()
+async def print_msg (delay: int, msg: str):
+    await asyncio.sleep(delay)
+    print(msg)
+async def main():
+    task1 = asyncio.create_task(print_msg(2, "Hello "))
+    task2 = asyncio.create_task(print_msg(3, "world"))
+    await task1
+    await task2
+asyncio.run(main())
