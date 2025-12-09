@@ -1,26 +1,11 @@
 import asyncio
 
-
-async def say_hello(t, msg):
-    await asyncio.sleep(t)
-    print(msg, end="")
-    await say_name(2, "Denis")
-
-
-async def say_name(t, name):
-    await asyncio.sleep(t)
-    print(name)
-    await say_end("END")
-
-
-async def say_end(msg):
+async def print_msg (delay: int, msg: str):
+    await asyncio.sleep(delay)
     print(msg)
-
-
 async def main():
-    task1 = asyncio.create_task(say_hello(1, "Hello, "))
-
+    task1 = asyncio.create_task(print_msg(2, "Hello "))
+    task2 = asyncio.create_task(print_msg(3, "world"))
     await task1
-
-
+    await task2
 asyncio.run(main())
