@@ -1,13 +1,15 @@
 import asyncio
 
 
-def my_callback(*args, **kwargs):
-    print(loop.is_running())
-    print("Callback processed")
-    loop.stop()
+async def async_generator(num):
+    for i in range(num):
+        await asyncio.sleep(1)
+        yield i
 
 
-loop = asyncio.get_event_loop()
-loop.call_later(3, my_callback, loop)
-loop.run_forever()
-print(loop.is_running())
+async def main():
+    async for value in async_generator(3):
+        print(value)
+
+
+asyncio.run(main())
