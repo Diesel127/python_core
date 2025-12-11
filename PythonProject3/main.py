@@ -1,8 +1,13 @@
 import asyncio
 
-loop = asyncio.new_event_loop()
-asyncio.set_event_loop(loop)
-print(loop)
-new_loop = asyncio.new_event_loop()
-asyncio.set_event_loop(new_loop)
-print(asyncio.get_event_loop())
+
+def my_callback(*args, **kwargs):
+    print(loop.is_running())
+    print("Callback processed")
+    loop.stop()
+
+
+loop = asyncio.get_event_loop()
+loop.call_later(3, my_callback, loop)
+loop.run_forever()
+print(loop.is_running())
