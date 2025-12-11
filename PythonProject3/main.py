@@ -1,12 +1,8 @@
 import asyncio
 
-async def set_future(fut, value):
-    await asyncio.sleep(1)
-    fut.set_result(value)
-
-async def main():
-    loop = asyncio.get_running_loop()
-    fut = loop.create_future()
-    await set_future(fut, "Hello")
-    print(fut.result())
-asyncio.run(main())
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
+print(loop)
+new_loop = asyncio.new_event_loop()
+asyncio.set_event_loop(new_loop)
+print(asyncio.get_event_loop())
