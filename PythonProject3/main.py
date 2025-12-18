@@ -1,9 +1,8 @@
-def my_sqrt(num: int) -> bool:
-    odd = 1
-    while num > 0:
-        num -= odd
-        odd += 2
-    return num == 0
+def is_polindrom(s):
+    cleaned = []
+    for ch in s:
+        if ch.isalnum():
+            cleaned.append(ch.lower())
+    return cleaned == cleaned[::-1]
 
-
-print(my_sqrt(5))
+print(is_polindrom(" Kazak"))
