@@ -1,15 +1,9 @@
-import asyncio
+def my_sqrt(num: int) -> bool:
+    odd = 1
+    while num > 0:
+        num -= odd
+        odd += 2
+    return num == 0
 
 
-async def async_generator(num):
-    for i in range(num):
-        await asyncio.sleep(1)
-        yield i
-
-
-async def main():
-    async for value in async_generator(3):
-        print(value)
-
-
-asyncio.run(main())
+print(my_sqrt(5))
